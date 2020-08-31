@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Update Patient</title>
+{% endblock %}
+
+
+{% block body %}
+
+<form class="" action="/update_patient/{{ patient.ssnid }}" method="POST">
+
+  <table border='0' width='480px' cellpadding='0' cellspacing='0' align='center'>
+<center><tr>
+   <td><h2 id="hhh">Update Patient</h2></td>
+</tr><center>
+
+<table border='0' width='480px' cellpadding='0' cellspacing='0' align='center'>
+<tr>
+    <td align='left' class="control-label">Patient ID</td>
+    <td>{{ patient.ssnid }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Old Name</td>
+  <td>{{ patient.name }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+  <td align='left' class="control-label" for="cname" >Patient Name<span class="required">*</span></td>
+<td><input type="text" id="cname" name="name" required="required" class="form-control"></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Old Age</td>
+  <td>{{ patient.age }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+  <td align='left' class="control-label" for="age" >Patient Age<span class="required">*</span></td>
+<td><input type="text" id="age" name="age" required="required" class="form-control"></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Old Room type</td>
+  <td>{{ patient.room_type }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+<td align='left' class="control-label" for="customerid" >Type of bed<span class="required">*</span></td>
+<td><select class="" name="room">
+    <option value="">Select</option>
+<option value="general ward">General Ward</option>
+<option value="semi sharing">Semi Sharing</option>
+<option value="single room">Single Room</option>
+</select></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Old Address</td>
+  <td>{{ patient.address }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+  <td align='left' class="control-label" for="add" >Address<span class="required">*</span></td>
+<td><input type="text" id="add" name="address" required="required" class="form-control"></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Old State</td>
+  <td>{{ patient.state }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+  <td align='left' class="control-label" for="customerid" >State<span class="required">*</span></td>
+<td><select class="" name="state">
+  <option value="">Select</option>
+<option value="andhra pradesh">Andhra Pradesh</option>
+<option value="telangana">Telangana</option>
+</select></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Old city</td>
+  <td>{{ patient.city }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+  <td align='left' class="control-label" for="customerid" >City<span class="required">*</span></td>
+  <td><select class="" name="city">
+  <option value="">Select</option>
+  <option value="amaravathi">Amaravathi</option>
+  <option value="hyderabad">Hyderabad</option>
+  </select></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='center'><h6 id="col">(*) Fields are compulsory</h6></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+
+<table border='0' cellpadding='0' cellspacing='0' width='200px' align='center'>
+<tr>
+    <td align='center'><button type='submit' class="btn btn-primary" name='sub'>Submit</td>
+    <td align='center'><button type="button" class="btn btn-primary" onclick="reset()" name='res'>Reset</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+</table>
+</table>
+</table>
+</form>
+{% endblock %}
+
+
+

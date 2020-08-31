@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Medical Details</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<td><h1 id="hhh">Pharmacy</h1></td>
+<table id="customers">
+  <tr>
+    <th>Patient SSNID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Address</th>
+    <th>DOJ</th>
+    <th>Type of Room</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>{{ patient.ssnid }}</td>
+    <td>{{ patient.name }}</td>
+    <td>{{ patient.age }}</td>
+    <td>{{ patient.address }}</td>
+    <td>{{ patient.date_of_joining.strftime('%Y/%m/%d %H:%M:%S %Z') }}</td>
+    <td>{{ patient.room_type }}</td>
+    <td>{{ patient.status }}</td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+{% if medicines %}
+<td><h1 id="hhh">Medicines Issued</h1></td>
+<table id="customers">
+  <tr>
+    <th>Medicine name</th>
+    <th>Quantity</th>
+    <th>Amount</th>
+  {% for medicine in medicines %}
+  <tr>
+    <td>{{ medicine.medicine }}</td>
+    <td>{{ medicine.quantity }}</td>
+    <td>{{ medicine.amount }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if medicines %}
+{% set points = [0] -%}
+{% for medicine in medicines -%}
+    {% if points.append(points.pop()+ medicine.amount) -%}{% endif %}
+{% endfor %}
+<table border='0' cellpadding='0' cellspacing='0' align='right'>
+<br>
+<tr>
+    <td><h6>Total = {{ points[0] }}</h6></td>
+</tr>
+</table> 
+<tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+{% if message %}
+  <table border='0' cellpadding='0' cellspacing='0' align='center'>
+   <tr>
+       <td style="color: red;"><h4>{{ message }}</h4></td>
+   </tr>
+   </table> 
+   <tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+<br>
+<form action="/add_medicine/{{ patient.ssnid }}" method="POST">
+<td><h1 id="hhh" style="margin-left: 80px;">Issue Medicines</h1></td>
+<table id="customers">
+  <tr>
+    <th>Medicine Name</th>
+    <th>Quantity</th>
+    <th>Rate</th>
+    <th>Amount</th>
+  <tr>
+    <td><input type="text" id="medicine_name" name="mname" required="required" class="form-control"></td>
+    <td><input type="text" id="medicine_quantity" name="quantity" required="required" class="form-control"></td>
+    <td><h5 id="rate"></h5></td>
+    <td><input type="text" id="amount" name="amount" required="required" class="form-control"></td>
+  </tr>
+</table>
+<tr> <td>&nbsp;</td> </tr>
+<table border='0' cellpadding='0' cellspacing='0' width='200px' align='center'>
+<tr>
+    <td align='center'><button type='submit' class="btn btn-primary" name='sub'>Submit</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+</table>
+</form>
+<br>
+
+<script>
+    document.getElementById("medicine_name").addEventListener("change", getPrice);
+    var price;
+    function getPrice() {
+      var name = document.getElementById("medicine_name").value;
+      name = name.toLowerCase();
+      if(name == 'acetaminophen'){
+         price = 1000;
+      }else if(name == 'adderall'){
+         price = 100;
+      }else if(name == 'neurontin'){
+        price = 200;
+      }else if(name == 'synthroid'){
+        price = 275;
+      }else if(name == 'glucophage'){
+        price = 1045;
+      }else if(name == 'prinivil'){
+        price = 499;
+      }
+      document.getElementById("rate").innerHTML = price;
+    }
+
+    document.getElementById("medicine_quantity").addEventListener("change", totalAmount);
+    function totalAmount() {
+      var quantity = document.getElementById("medicine_quantity").value;
+      quantity = parseInt(quantity);
+      document.getElementById("amount").value = quantity * parseInt(price);
+    }
+</script>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Medical Details</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<td><h1 id="hhh">Pharmacy</h1></td>
+<table id="customers">
+  <tr>
+    <th>Patient SSNID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Address</th>
+    <th>DOJ</th>
+    <th>Type of Room</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>{{ patient.ssnid }}</td>
+    <td>{{ patient.name }}</td>
+    <td>{{ patient.age }}</td>
+    <td>{{ patient.address }}</td>
+    <td>{{ patient.date_of_joining.strftime('%Y/%m/%d %H:%M:%S %Z') }}</td>
+    <td>{{ patient.room_type }}</td>
+    <td>{{ patient.status }}</td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+{% if diagnoses %}
+<td><h1 id="hhh">Diagnosis Issued</h1></td>
+<table id="customers">
+  <tr>
+    <th>Diagnosis name</th>
+    <th>Amount</th>
+  {% for diagnosis in diagnoses %}
+  <tr>
+    <td>{{ diagnosis.diagnosis }}</td>
+    <td>{{ diagnosis.amount }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% if diagnoses %}
+{% set points = [0] -%}
+{% for diagnosis in diagnoses -%}
+    {% if points.append(points.pop()+ diagnosis.amount) -%}{% endif %}
+{% endfor %}
+<table border='0' cellpadding='0' cellspacing='0' align='right'>
+<br>
+<tr>
+    <td><h6>Total = {{ points[0] }}</h6></td>
+</tr>
+</table> 
+<tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+
+{% if message %}
+  <table border='0' cellpadding='0' cellspacing='0' align='center'>
+   <tr>
+       <td style="color: red;"><h4>{{ message }}</h4></td>
+   </tr>
+   </table> 
+   <tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+<br>
+<form action="/add_diagnosis/{{ patient.ssnid }}" method="POST">
+<td><h1 id="hhh" style="margin-left: 80px;">Issue Diagnosis</h1></td>
+<table id="customers">
+  <tr>
+    <th>Diagnosis Name</th>
+    <th>Quantity</th>
+  <tr>
+    <td><input type="text" id="diagnosis_name" name="dname" required="required" class="form-control"></td>
+    <td><input type="text" id="amount" name="amount" required="required" class="form-control"></td>
+  </tr>
+</table>
+<tr> <td>&nbsp;</td> </tr>
+<table border='0' cellpadding='0' cellspacing='0' width='200px' align='center'>
+<tr>
+    <td align='center'><button type='submit' class="btn btn-primary" name='sub'>Submit</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+</table>
+</form>
+<br>
+
+<script>
+    document.getElementById("diagnosis_name").addEventListener("change", getPrice);
+    var price;
+    function getPrice() {
+      var name = document.getElementById("diagnosis_name").value;
+      name = name.toLowerCase();
+      if(name == 'hypertension'){
+         price = 5000;
+      }else if(name == 'diabetes'){
+         price = 7500;
+      }else if(name == 'back pain'){
+         price = 6500;
+      }else if(name == 'anxiety'){
+         price = 8000;
+      }else if(name == 'obesity'){
+         price = 8900;
+      }else if(name == 'allergic rhinitis'){
+         price = 9200;
+      }
+      document.getElementById("amount").value = price;
+    }
+
+</script>
+
+
+</div>
+{% endblock %}

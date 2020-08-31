@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+   <title>View All Patients</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<td><h1 id="hhh">Patients Details</h1></td>
+<table id="customers">
+  {% if patients %}
+  <tr>
+    <th>Patient SSNID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Address</th>
+    <th>DOJ</th>
+    <th>Type of Room</th>
+    <th>Status</th>
+  </tr>
+  {% for patient in patients %}
+  <tr>
+    <td>{{ patient.ssnid }}</td>
+    <td>{{ patient.name }}</td>
+    <td>{{ patient.age }}</td>
+    <td>{{ patient.address }}</td>
+    <td>{{ patient.date_of_joining.strftime('%Y/%m/%d %H:%M:%S %Z') }}</td>
+    <td>{{ patient.room_type }}</td>
+    <td>{{ patient.status }}</td>
+  </tr>
+  {% endfor %}
+  {% endif %}
+  {% if error %}
+     <table border='0' cellpadding='0' cellspacing='0' align='center'>
+      <tr>
+          <td style="color: red;"><h4>{{ error }}</h4></td>
+      </tr>
+      </table> 
+      <tr> <td>&nbsp;</td> </tr>
+   {% endif %}
+  </table>
+</div>
+{% endblock %}
+
+

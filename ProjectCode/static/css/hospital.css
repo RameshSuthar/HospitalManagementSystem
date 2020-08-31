@@ -1,0 +1,72 @@
+html, body{
+  height: 100px;
+}
+#hhh{
+  margin-bottom: 50px;
+  color: red;
+  text-align: center;
+}
+.required
+{
+    color: red;
+  }
+  #col{
+    color: red;
+  }
+#hh{
+  text-align: center;
+  color: blue;
+}
+#customers {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
+}
+#customers td {
+  text-align: center;
+  color: black;
+}
+
+#bg {
+  position: fixed; 
+  z-index: -1;
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+}
+#bg img {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+}
+
+#text{
+  z-index: 1;
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%,-50%);
+  color: whitesmoke;
+}

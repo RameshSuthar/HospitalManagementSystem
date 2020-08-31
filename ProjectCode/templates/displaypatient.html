@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Update Patient</title>
+{% endblock %}
+
+
+{% block body %}
+
+<table border='0' width='480px' cellpadding='0' cellspacing='0' align='center'>
+<center><tr>
+   <td><h2 id="hhh">Patient Details</h2></td>
+</tr><center>
+
+<table border='0' width='480px' cellpadding='0' cellspacing='0' align='center'>
+<tr>
+    <td align='left' class="control-label">Patient ID</td>
+    <td>{{ patient.ssnid }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Name</td>
+  <td>{{ patient.name }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+<tr>
+  <td align='left' class="control-label">Patient Age</td>
+  <td>{{ patient.age }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+
+<tr>
+  <td align='left' class="control-label">Patient Room type</td>
+  <td>{{ patient.room_type }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+
+<tr>
+  <td align='left' class="control-label">Patient Address</td>
+  <td>{{ patient.address }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+
+<tr>
+  <td align='left' class="control-label">Patient State</td>
+  <td>{{ patient.state }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+
+<tr>
+  <td align='left' class="control-label">Patient city</td>
+  <td>{{ patient.city }}</td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+
+
+
+
+<table border='0' cellpadding='0' cellspacing='0' width='200px' align='center'>
+
+<tr>
+    {% if message=='delete' %}
+    <td align='center'><a type='submit' class="btn btn-primary" href="/delete_patient/{{ patient.ssnid }}">Delete</td>
+    {% endif %}
+    <td align='center'><a type='button' class="btn btn-primary" href="/home">Home</a></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+</table>
+</table>
+</table>
+</form>
+{% endblock %}
+
+
+

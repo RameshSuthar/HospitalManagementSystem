@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Medical Details</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<td><h1 id="hhh">Pharmacy</h1></td>
+<table id="customers">
+  <tr>
+    <th>Patient SSNID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Address</th>
+    <th>Joining date</th>
+    <th>Discharge date</th>
+    <th>Type of Room</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>{{ patient.ssnid }}</td>
+    <td>{{ patient.name }}</td>
+    <td>{{ patient.age }}</td>
+    <td>{{ patient.address }}</td>
+    <td>{{ patient.date_of_joining.strftime('%Y/%m/%d %H:%M:%S %Z') }}</td>
+    <td>{{ date_of_discharge.strftime('%Y/%m/%d %H:%M:%S %Z') }}</td>
+    <td id="room">{{ patient.room_type }}</td>
+    <td>{{ patient.status }}</td>
+  </tr>
+</table>
+
+<br>
+<table border='0' cellpadding='0' cellspacing='0' align='right'>
+  <br>
+  <tr>
+      <td><h6 id="days">No of days : {{ days }}</h6></td>
+  </tr>
+  <tr>
+    <td><h6 id="total_price_for_room">Total Price for room : {{ totalPriceForRoom }}</h6></td>
+  </tr>
+  </table> 
+  <tr> <td>&nbsp;</td> </tr>
+  <br>
+  &nbsp;
+  <br>
+
+
+
+{% if medicines %}
+<td><h1 style="margin-left: 180px;" id="hhh">Medicines Issued</h1></td>
+<table id="customers">
+  <tr>
+    <th>Medicine name</th>
+    <th>Quantity</th>
+    <th>Amount</th>
+  {% for medicine in medicines %}
+  <tr>
+    <td>{{ medicine.medicine }}</td>
+    <td>{{ medicine.quantity }}</td>
+    <td>{{ medicine.amount }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% set medPrice = [0] -%}
+{% if medicines %}
+{% for medicine in medicines -%}
+    {% if medPrice.append(medPrice.pop()+ medicine.amount) -%}{% endif %}
+{% endfor %}
+<table border='0' cellpadding='0' cellspacing='0' align='right'>
+<br>
+<tr>
+    <td><h6>Total price for medicines = {{ medPrice[0] }}</h6></td>
+</tr>
+</table> 
+<tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+<br>
+<br>
+
+{% if diagnoses %}
+<td><h1 id="hhh">Diagnosis Issued</h1></td>
+<table id="customers">
+  <tr>
+    <th>Diagnosis name</th>
+    <th>Amount</th>
+  {% for diagnosis in diagnoses %}
+  <tr>
+    <td>{{ diagnosis.diagnosis }}</td>
+    <td>{{ diagnosis.amount }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% set diaPrice = [0] -%}
+{% if diagnoses %}
+{% for diagnosis in diagnoses -%}
+    {% if diaPrice.append(diaPrice.pop()+ diagnosis.amount) -%}{% endif %}
+{% endfor %}
+<table border='0' cellpadding='0' cellspacing='0' align='right'>
+<br>
+<tr>
+    <td><h6>Total price for diagnosis = {{ diaPrice[0] }}</h6></td>
+</tr>
+</table> 
+<tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+
+{% if diaMessage %}
+  <table border='0' cellpadding='0' cellspacing='0' align='center'>
+   <tr>
+       <td style="color: red;"><h4>{{ diaMessage }}</h4></td>
+   </tr>
+   </table> 
+   <tr> <td>&nbsp;</td> </tr>
+{% endif %}
+{% if medMessage %}
+  <table border='0' cellpadding='0' cellspacing='0' align='center'>
+   <tr>
+       <td style="color: red;"><h4>{{ medMessage }}</h4></td>
+   </tr>
+   </table> 
+   <tr> <td>&nbsp;</td> </tr>
+{% endif %}
+
+<br>
+<br>
+
+<form action="/discharge/{{ patient.ssnid }}" method="POST">
+<table border='0' cellpadding='0' cellspacing='0' width='500px' align='center'>
+<tr>
+    <td align='center'><button type='submit' class="btn btn-primary" name='sub'>Confirm</td>
+    <td ><h6>Grand Total : {{ medPrice[0]+totalPriceForRoom+diaPrice[0] }}</h6></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+</table>
+</form>
+<br>
+
+
+
+</div>
+{% endblock %}
